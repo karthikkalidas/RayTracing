@@ -11,9 +11,7 @@ class sphere : public hittable{
         sphere() {}
         sphere(point3 cen, double r) : center(cen), radius(r) {};
 
-        virtual bool hit(const ray &r, double t_min, double t_max, hit_record &rec) const override;
-
-        bool hit(const ray &r, double t_min, double t_max, hit_record &rec) const{
+        virtual bool hit(const ray &r, double t_min, double t_max, hit_record &rec) const override {
             vec3 oc = r.origin() - center;
             double a = r.direction().length_squared();
             double half_b = dot(oc, r.direction());
