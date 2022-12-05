@@ -9,11 +9,8 @@ class hittable_list : public hittable {
         std::vector<hittable> items;
 
         hittable_list() {}
-        hittable_list(hittable item) { add(item); }   
 
         void clear() { items.clear(); }
-
-        void add(hittable item) { items.push_back(item); } 
 
         virtual bool hit(const ray&r, double t_min, double t_max, hit_record& rec) const override{
             bool hit_anything {false};
