@@ -16,15 +16,13 @@ class hittable_list : public hittable {
         void add(std::shared_ptr<hittable> item) { items.push_back(item); } 
 
         virtual bool hit(const ray&r, double t_min, double t_max, hit_record& rec) const override{
-            hit_record temp_rec;
             bool hit_anything {false};
             double closest_so_far = t_max;
 
             for (const auto& item : items) {
-                if (item->hit(r, t_min, closest_so_far, temp_rec)){
+                if (item->hit(r, t_min, closest_so_far, rec)){
                     hit_anything = true;
-                    closest_so_far = temp_rec.t;
-                    rec = temp_rec;
+                    closest_so_far = rec.t;
                 }
             }
             return hit_anything;            

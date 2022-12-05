@@ -23,9 +23,9 @@ class sphere : public hittable{
 
             // Find nearest root in acceptable range
             double root = (-half_b - sqrtd) / a;
-            if (root < t_min || t_max < root){
+            if (root < t_min || root > t_max){
                 root = (-half_b + sqrtd) / a;
-                if (root < t_min || t_max < root)
+                if (root < t_min || root > t_max)
                     return false;
             }
 
