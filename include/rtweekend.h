@@ -1,7 +1,7 @@
 #pragma once 
 
-#include<limits>
-#include<cstdlib>
+#include <limits>
+#include <cstdlib>
 
 // Constants
 
@@ -27,3 +27,7 @@ inline double clamp(double x, double min, double max){
     else if (x > max) return max;
     else return x;
 }
+
+// Common Headers
+#include "ray.h"
+#include "vec3.h"
