@@ -1,6 +1,6 @@
 # RayTracing
-Ray tracing in a weekend series
+Ray tracing in a weekend series([link](https://raytracing.github.io/))
 
-## Build
+## Run
 - Clone repository
 - ```bash run.sh```
