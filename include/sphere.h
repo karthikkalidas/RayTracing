@@ -1,9 +1,23 @@
 #pragma once
 
-#include "hittable.h"
 #include "ray.h"
 
-class sphere : public hittable{
+class material;
+
+struct hit_record{
+    point3 p;
+    vec3 normal;
+    std::shared_ptr<material> mat_ptr;
+    double t;
+    bool front_face;
+
+    inline void set_face_normal(const ray& r, const vec3& outward_normal){
+        front_face = dot(r.direction(), outward_normal) < 0;
+        normal = front_face ? outward_normal : -outward_normal;
+    }
+};
+
+class sphere {
     public:
         point3 center;
         double radius;
@@ -12,7 +26,7 @@ class sphere : public hittable{
         sphere() {}
         sphere(point3 cen, double r, std::shared_ptr<material> m) : center(cen), radius(r), mat_ptr(m) {};
 
-        virtual bool hit(const ray &r, double t_min, double t_max, hit_record &rec) const override {
+        bool hit(const ray &r, double t_min, double t_max, hit_record &rec) const {
             vec3 oc = r.origin() - center;
             double a = r.direction().length_squared();
             double half_b = dot(oc, r.direction());

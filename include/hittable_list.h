@@ -2,23 +2,22 @@
 
 #include <memory>
 #include <vector>
-#include "hittable.h"
 #include "sphere.h"
 
-class hittable_list : public hittable{
+class hittable_list{
     public: 
-        std::vector<std::shared_ptr<hittable>> items;
+        std::vector<sphere> items;
 
         hittable_list() {}
 
         void clear() { items.clear(); }
 
-        virtual bool hit(const ray&r, double t_min, double t_max, hit_record& rec) const override{
+        bool hit(const ray&r, double t_min, double t_max, hit_record& rec) const {
             bool hit_anything {false};
             double closest_so_far = t_max;
 
             for (const auto& item : items) {
-                if (item->hit(r, t_min, closest_so_far, rec)){
+                if (item.hit(r, t_min, closest_so_far, rec)){
                     hit_anything = true;
                     closest_so_far = rec.t;
                 }

@@ -29,7 +29,7 @@ hittable_list random_scene(){
     hittable_list world;
 
     auto ground_material = std::make_shared<lambertian>(color(0.5, 0.5, 0.5));
-    world.items.emplace_back(std::make_shared<sphere>(point3(0, -1000,0), 1000, ground_material));
+    world.items.emplace_back(sphere(point3(0, -1000,0), 1000, ground_material));
 
     for(int a = -11; a < 11; ++a){
         for(int b = -11; b < 11; ++b){
@@ -43,30 +43,30 @@ hittable_list random_scene(){
                     //diffuse
                     auto albedo = random_vector() * random_vector();
                     sphere_material = std::make_shared<lambertian>(albedo);
-                    world.items.emplace_back(std::make_shared<sphere>(center, 0.2, sphere_material));
+                    world.items.emplace_back(sphere(center, 0.2, sphere_material));
                 } else if (choose_mat < 0.95) {
                     //metal
                     auto albedo = random_vector(0.5, 1);
                     auto fuzz = random_double(0, 0.5);
                     sphere_material = std::make_shared<metal>(albedo, fuzz);
-                    world.items.emplace_back(std::make_shared<sphere>(center, 0.2, sphere_material));
+                    world.items.emplace_back(sphere(center, 0.2, sphere_material));
                 } else {
                     //glass
                     sphere_material = std::make_shared<dielectric>(1.5);
-                    world.items.emplace_back(std::make_shared<sphere>(center, 0.2, sphere_material));
+                    world.items.emplace_back(sphere(center, 0.2, sphere_material));
                 }
             }
         }
     }
 
     auto material1 = std::make_shared<dielectric>(1.5);
-    world.items.emplace_back(std::make_shared<sphere>(point3(0,1,0), 1.0, material1));
+    world.items.emplace_back(sphere(point3(0,1,0), 1.0, material1));
 
     auto material2 = std::make_shared<lambertian>(color(0.4, 0.2, 0.1));
-    world.items.emplace_back(std::make_shared<sphere>(point3(-4,1,0),1, material2));
+    world.items.emplace_back(sphere(point3(-4,1,0),1, material2));
 
     auto material3 = std::make_shared<metal>(color(0.7, 0.6, 0.5), 0.0);
-    world.items.emplace_back(std::make_shared<sphere>(point3(4,1,0),1, material3));
+    world.items.emplace_back(sphere(point3(4,1,0),1, material3));
 
     return world;
 }
@@ -78,8 +78,8 @@ int main(){
     const double aspect_ratio = 16.0 / 9.0;
     const int image_width = 1200;
     const int image_height = (image_width / aspect_ratio);
-    const int samples_per_pixel = 10; 
-    const int max_depth = 50;
+    const int samples_per_pixel = 8; 
+    const int max_depth = 8;
 
     // World
     auto world = random_scene();

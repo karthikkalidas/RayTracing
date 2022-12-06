@@ -101,18 +101,17 @@ inline vec3 unit_vector(vec3 v){
 }
 
 inline static vec3 random_vector() {
-            return vec3(random_double(), random_double(), random_double());
-        }
+    return vec3(random_double(), random_double(), random_double());
+}
 
-        inline static vec3 random_vector(double min, double max) {
-            return vec3(random_double(min,max), random_double(min,max), random_double(min,max));
-        }
+inline static vec3 random_vector(double min, double max) {
+    return vec3(random_double(min,max), random_double(min,max), random_double(min,max));
+}
 
 vec3 random_in_unit_sphere(){
     while (true){
         point3 p = random_vector(-1,1);
-        if (p.length_squared() >= 1) continue;
-        else return p;
+        if (p.length_squared() < 1) return p;
     }
 }
 
@@ -140,7 +139,6 @@ vec3 refract(const vec3& uv, const vec3& n, double etai_over_etat) {
 vec3 random_in_unit_disk(){
     while(true){
         auto p = vec3(random_double(-1,1), random_double(-1,1), 0);
-        if (p.length_squared() >= 1) continue;
-        return p;
+        if (p.length_squared() < 1) return p;
     }
 }
